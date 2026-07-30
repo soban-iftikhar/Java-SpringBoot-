@@ -1,67 +1,78 @@
-class Topic_04_TypeConversionAndTypeCasting {
+/*
+ * Topic 4: Type Conversion, Casting, and Parsing
+ * 
+ * --- LEVEL 0: BEGINNER ---
+ * Often, you need to convert data from one type to another.
+ * - Implicit (Widening): Automatically converting a smaller type to a larger type (e.g., int to double).
+ * - Explicit (Narrowing): Manually forcing a larger type into a smaller type (e.g., double to int).
+ * - Parsing: Converting a String containing text into a primitive number.
+ */
+public class Topic_04_TypeConversionAndTypeCasting {
     public static void main(String[] args) {
 
-        // Type Conversion and Type Casting
-        /*
-        In Java you can't directly convert between incompatible types. For example, you can't directly convert a String to an int.
-        You need to use methods like Integer.parseInt() or Double.parseDouble() to perform the conversion. The other way to
-        perform type conversion is through type casting, which is only possible when the types are compatible.
-        Compatible types are those that can be converted to each other without losing information. For example, you can cast an
-        int to a double, but you can't cast a String to an int.
-        */
-        // Type Conversion - Code Example
-        String str = "123";
-        int num = Integer.parseInt(str); // Converts String to int
+        // --- LEVEL 0: BEGINNER (The absolute basics) ---
+        System.out.println("--- 1. Widening Conversion (Implicit Casting) ---");
+        // Java handles this automatically because there is no risk of losing data.
+        // byte -> short -> int -> long -> float -> double
+        int myInt = 100;
+        double myDouble = myInt; // Automatic cast: int safely promotes to double
+        System.out.println("Int value: " + myInt);
+        System.out.println("Promoted to Double: " + myDouble);
 
-        Double doubleNum = 10.99;
-        String strNum = Double.toString(doubleNum); // Converts Double to String
 
-        // Type Casting - Code Example
-        double d = 10.5;
-        int i = (int) d; // Casts double to int, but loses the decimal part
-        System.out.println("The value of i is: " + i);
+        System.out.println("\n--- 2. Narrowing Conversion (Explicit Casting) ---");
+        // Converting a larger type to a smaller type requires a manual cast `(type)`.
+        // WARNING: This can result in DATA LOSS (truncation).
+        double largeDouble = 9.78d;
+        int narrowedInt = (int) largeDouble; // Manual casting: fractional part (.78) is dropped!
+        System.out.println("Original Double: " + largeDouble);
+        System.out.println("Narrowed to Int: " + narrowedInt);
 
-        // Type Conversion vs Type Casting
-        /*
-        The main difference between type conversion and type casting is that type conversion is an automatic process, while
-        type casting is a manual process.
-        */
 
-        // Type Promotion
-        /*
-        Type promotion is the process of converting a smaller data type to a larger data type. For example, when you perform an
-        arithmetic operation on an int and a double, the int is automatically promoted to a double.
-        */
-        // Example Code
-        int a = 5;
-        double b = 10.5;
-        double c = a + b; // int is promoted to double
+        System.out.println("\n--- 3. Parsing Strings to Primitives ---");
+        // You CANNOT cast a String to an int (e.g., `(int) "123"` will not compile).
+        // String is an Object, int is a primitive. You must Parse using Wrapper classes.
+        String numberStr = "12345";
+        int parsedInt = Integer.parseInt(numberStr);
+        System.out.println("Successfully parsed String to Int: " + parsedInt);
+
+
+
+        // --- LEVEL 1: ADVANCED (Advanced concepts and edge cases) ---
+        
+        System.out.println("\n--- 4. Advanced Edge Case: Narrowing Data Corruption ---");
+        // A byte can hold values from -128 to +127.
+        // What happens if we force an int containing 130 into a byte?
+        int hugeInt = 130;
+        byte corruptedByte = (byte) hugeInt; 
+        
+        // WHY does it print -126?
+        // 130 in 32-bit binary: 00000000 00000000 00000000 10000010
+        // When cast to 8-bit byte, only the last 8 bits remain: 10000010
+        // In Two's Complement binary (used by Java), 10000010 represents -126!
+        System.out.println("Int 130 explicitly cast to byte results in: " + corruptedByte); 
+
+
+        System.out.println("\n--- 5. Advanced Edge Case: Type Promotion in Expressions ---");
+        // Rule: In any arithmetic expression involving byte, short, or char, 
+        // Java automatically promotes them to `int` BEFORE the calculation.
+        byte b1 = 40;
+        byte b2 = 50;
+        
+        // EDGE CASE: The following line will NOT compile without a cast:
+        // byte b3 = b1 + b2; // ERROR: b1 + b2 results in an 'int', which can't fit directly into a byte.
+        
+        // Correct way:
+        byte b3 = (byte) (b1 + b2);
+        System.out.println("Result of byte addition (cast back to byte): " + b3);
+
+
+        System.out.println("\n--- 6. Advanced Edge Case: Parsing Failures ---");
+        String invalidNumberStr = "123a"; // Contains a letter
+        try {
+            int failedParse = Integer.parseInt(invalidNumberStr);
+        } catch (NumberFormatException e) {
+            System.err.println("Failed to parse! The string contained non-numeric characters: " + invalidNumberStr);
+        }
     }
 }
-
-// Bonus: Type Conversion and Type Casting in Java
-/*
-You cannot convert a String to primitive numbers using type casting because String is an object type that does not share an
-inheritance relationship with primitive types. In Java, type casting like (int) "123" only works between compatible types—either
-among numeric primitive types (like double to int) or within the same object class hierarchy.
-To turn text into a number, you must use parsing methods provided by Java's wrapper classes. This is commonly referred to as
-data type conversion or parsing.
-
-Why Casting Fails vs. Why Parsing Works?
-
-Type Casting (int) text:
-Casting tells the Java compiler to treat an existing piece of memory as a different type.
-Because a String object structured in memory looks nothing like a primitive binary integer, Java completely blocks this at compile-time.
-For Casting Conversions... you can only cast
-(1) variables of the same type
-(2) widening/narrowing primitives
-(3) widening/narrowing references (up/down cast)
-(4) boxed/unboxed variables.
-
-Type Conversion/Parsing Integer.parseInt():
-Methods like parseInt() are built-in algorithms. They read through the string character-by-character (e.g., checking for '1', then '2',
-then '3'), calculate the actual mathematical value, and return a brand new primitive numeric value.
-
-Note:
-When using parsing methods, always watch out for a NumberFormatException, which happens if your string contains non-numeric text like "abc".
-*/

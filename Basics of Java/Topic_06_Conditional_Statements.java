@@ -1,30 +1,20 @@
-
+/*
+ * Topic 6: Conditional Statements
+ * 
+ * --- LEVEL 0: BEGINNER ---
+ * Conditional statements execute different blocks of code based on whether a condition is true or false.
+ * - if / else if / else
+ * - switch (for exact value matching)
+ * - Ternary operator (shorthand for if/else)
+ */
 public class Topic_06_Conditional_Statements {
 
     public static void main(String[] args) {
         
-        /* 
-        Conditional statements in Java are used to perform different actions based on different conditions. 
-        The most common conditional statements are if, else if, else, and switch statements.
-        */
-
-        // Example Code for if statement
-        // Checking if a number is positive
+        // --- LEVEL 0: BEGINNER (The absolute basics) ---
+        System.out.println("--- 1. Basic If / Else ---");
         int number = 10;
-        if (number > 0) {
-            System.out.println("The number is positive.");
-        }
-
-        // Example Code for if-else statement
-        // Checking if numbers is even or odd
-        if (number % 2 == 0) {
-            System.out.println("The number is even.");
-        } else {
-            System.out.println("The number is odd.");   
-        }
-
-        // Example Code for if-else-if statement
-        // Checking if a number is positive, negative or zero
+        
         if (number > 0) {
             System.out.println("The number is positive.");
         } else if (number < 0) {
@@ -33,94 +23,80 @@ public class Topic_06_Conditional_Statements {
             System.out.println("The number is zero.");
         }
 
-        // Example Code for nested if statement
-        // Checking if a number is positive and even
-        if (number > 0) {
-            if (number % 2 == 0) {
-                System.out.println("The number is positive and even.");
-            } else {
-                System.out.println("The number is positive and odd.");
-            }
-        }
+
+        System.out.println("\n--- 2. Basic Ternary Operator ---");
+        // Syntax: (condition) ? value_if_true : value_if_false;
+        String result = (number % 2 == 0) ? "Even" : "Odd";
+        System.out.println("Number is: " + result);
 
 
-        /*
-        Traditional Switch statements are used to perform different actions based on different conditions.
-        The switch statement evaluates an expression and matches the expression's value to a case label.
-        If there is a match, the associated block of code is executed. If there is no match, the default block of code is executed.
-        */
-        // Checking the day of the week
+        System.out.println("\n--- 3. Traditional Switch Statement ---");
+        // Traditional switch requires 'break' statements to prevent fall-through.
         int day = 3;
         switch (day) {
             case 1:
                 System.out.println("Monday");
                 break;
-            case 2:
-                System.out.println("Tuesday");
-                break;
             case 3:
                 System.out.println("Wednesday");
                 break;
-            case 4:
-                System.out.println("Thursday");
-                break;
-            case 5:
-                System.out.println("Friday");
-                break;
-            case 6:
-                System.out.println("Saturday");
-                break;
-            case 7:
-                System.out.println("Sunday");
-                break;
             default:
-                System.out.println("Invalid day");
+                System.out.println("Other day");
         }
 
-        /*
-        Rule Switch:
-        Introduced in modern Java (standardized in Java 14), a rule switch uses the arrow (->) syntax. 
-        When a case matches, only the code to the right of the arrow executes, completely eliminating 
-        the risk of accidental fall-through bugs. 
-        */
-        int day2 = 3;
-        switch (day2) {
-            case 1 -> System.out.println("Monday");
-            case 2 -> System.out.println("Tuesday");
-            case 3 -> System.out.println("Wednesday");
-            case 4 -> System.out.println("Thursday");
-            case 5 -> System.out.println("Friday");
-            case 6 -> System.out.println("Saturday");
-            case 7 -> System.out.println("Sunday");
-            default -> System.out.println("Invalid day");
-        }
-
-        /*
-        The difference between traditional switch and rule switch is that the traditional switch uses the colon (:) syntax,
-        while the rule switch uses the arrow (->) syntax. The rule switch is more concise and eliminates the risk of accidental 
-        fall-through bugs, making it a safer choice for switch statements. Beacuse if we miss a break statement in a traditional switch, 
-        the code will continue to execute the next case, which can lead to unexpected behavior. On the other hand, the rule switch 
-        does not have this issue, as it does not allow fall-through behavior.
-        */
 
 
+        // --- LEVEL 1: ADVANCED (Advanced concepts and edge cases) ---
         
-        /* 
-        Ternary Operators:
-        are a shorthand way of writing an if-else statement. 
-        It takes three operands: a condition, a result for true, and a result for false.
-        */
-
-        // Checking if a number is positive or negative
-        String result = (number > 0) ? "The number is positive." : "The number is negative.";
-        System.out.println(result);
-
-        // Example Code for nested ternary operator
-        // Checking if a number is positive, negative or zero
-        String result2 = (number > 0) ? "The number is positive." : (number < 0) ? "The number is negative." : "The number is zero.";
-        System.out.println(result2);
+        System.out.println("\n--- 4. Advanced Edge Case: The Dangling Else Trap ---");
+        boolean condition1 = true;
+        boolean condition2 = false;
+        
+        // EDGE CASE: If braces {} are omitted, an 'else' belongs to the nearest 'if'.
+        // Formatting might trick you into thinking the else belongs to the first if.
+        if (condition1)
+            if (condition2)
+                System.out.println("Condition 1 and 2 are true");
+        else 
+            System.out.println("Wait, which 'if' does this belong to?"); 
+            // It actually belongs to condition2! Always use {} to prevent this bug.
 
 
+        System.out.println("\n--- 5. Advanced Edge Case: Ternary Operator Type Promotion ---");
+        // If the true and false expressions evaluate to different numeric types, 
+        // Java automatically promotes the smaller type to the larger type for the ENTIRE expression.
+        int intValue = 1;
+        double doubleValue = 2.0;
+        
+        // Even though the condition is true and returns 'intValue' (which is an int), 
+        // the return type of the ternary statement becomes 'double' because of 'doubleValue'.
+        var promotedResult = (true) ? intValue : doubleValue; 
+        System.out.println("Ternary promoted result (1 becomes 1.0): " + promotedResult);
 
-   }
+
+        System.out.println("\n--- 6. Advanced Feature: Switch Expressions (Java 14+) ---");
+        // Switch Expressions solve the fall-through problem using arrows (->).
+        // They can also RETURN a value directly!
+        int dayOfWeek = 3; 
+        
+        String dayType = switch (dayOfWeek) {
+            case 1, 2, 3, 4, 5 -> "Weekday"; // Multiple cases on one line
+            case 6, 7 -> "Weekend";
+            default -> "Invalid Day"; // Switch expressions MUST be exhaustive
+        };
+        System.out.println("Day 3 is a: " + dayType);
+
+
+        System.out.println("\n--- 7. Advanced Feature: Switch Expressions with `yield` ---");
+        // If a switch expression branch requires multiple lines of code before returning a value,
+        // use a block {} and the `yield` keyword to return the value.
+        String complexDayType = switch (dayOfWeek) {
+            case 1, 2, 3, 4, 5 -> {
+                System.out.println("   Calculating weekday logic...");
+                yield "Weekday"; // 'yield' is like 'return' specifically for switch expressions.
+            }
+            default -> "Other"; 
+        };
+        System.out.println("Yielded result: " + complexDayType);
+    }
 }
