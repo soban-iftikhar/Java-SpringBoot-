@@ -9,6 +9,10 @@ To prevent this file from becoming endlessly long, theoretical notes are stored 
 - **[OOP/Topic_04_Inheritance.md](OOP/Topic_04_Inheritance.md)**: IS-A relationships, multi-level structures, and the Diamond Problem.
 - **[OOP/Topic_05_SuperKeyword.md](OOP/Topic_05_SuperKeyword.md)**: Variable hiding (John Cena effect) and constructor control.
 - **[OOP/Topic_06_Polymorphism.md](OOP/Topic_06_Polymorphism.md)**: Overloading (Compile-time) vs Overriding (Run-time).
+- **[OOP/Topic_07_PackagesAndAccessModifiers.md](OOP/Topic_07_PackagesAndAccessModifiers.md)**: Public, Private, Protected, and Default scope rules.
+- **[OOP/Topic_08_ObjectAndFinalKeyword.md](OOP/Topic_08_ObjectAndFinalKeyword.md)**: Overriding equals(), toString(), hashCode(), and final constants.
+- **[OOP/Topic_09_AbstractAndInnerClasses.md](OOP/Topic_09_AbstractAndInnerClasses.md)**: Abstract blueprints, nested inner classes, and anonymous one-off classes.
+- **[OOP/Topic_10_Interfaces.md](OOP/Topic_10_Interfaces.md)**: Multiple inheritance and the Abstract Class vs Interface interview answer.
 - **[DSA/Topic_01_Arrays.md](DSA/Topic_01_Arrays.md)**: Drawbacks and limitations of basic Arrays.
 - **[Basics of Java/theoretical notes.md](Basics%20of%20Java/theoretical%20notes.md)**: String mutability and core syntax cheat sheets.
 

@@ -90,7 +90,7 @@ class FinancialCalculator extends Calculator {
 }
 
 // ==========================================
-// 5. ❌ MULTIPLE INHERITANCE (FORBIDDEN IN JAVA)
+// 5. MULTIPLE INHERITANCE (FORBIDDEN IN JAVA)
 // ==========================================
 // In languages like C++, a child can have MULTIPLE parents. 
 // Java strictly FORBIDS this for classes to avoid the "Diamond Problem" (ambiguity if both parents have the same method).
