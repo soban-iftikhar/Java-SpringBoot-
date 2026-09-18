@@ -13,6 +13,7 @@ To prevent this file from becoming endlessly long, theoretical notes are stored 
 - **[OOP/Topic_08_ObjectAndFinalKeyword.md](OOP/Topic_08_ObjectAndFinalKeyword.md)**: Overriding equals(), toString(), hashCode(), and final constants.
 - **[OOP/Topic_09_AbstractAndInnerClasses.md](OOP/Topic_09_AbstractAndInnerClasses.md)**: Abstract blueprints, nested inner classes, and anonymous one-off classes.
 - **[OOP/Topic_10_Interfaces.md](OOP/Topic_10_Interfaces.md)**: Multiple inheritance and the Abstract Class vs Interface interview answer.
+- **[OOP/Topic_11_Serialization.md](OOP/Topic_11_Serialization.md)**: Saving object state, Marker Interfaces, transient data, and serialVersionUID.
 - **[DSA/Topic_01_Arrays.md](DSA/Topic_01_Arrays.md)**: Drawbacks and limitations of basic Arrays.
 - **[Basics of Java/theoretical notes.md](Basics%20of%20Java/theoretical%20notes.md)**: String mutability and core syntax cheat sheets.
 
