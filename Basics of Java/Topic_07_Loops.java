@@ -1,62 +1,101 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/*
+ * Topic 7: Loops and Iteration
+ * 
+ * --- LEVEL 0: BEGINNER ---
+ * Loops are used to execute a block of code repeatedly.
+ * 1. for loop: When you know the exact number of iterations.
+ * 2. while loop: When you want to loop until a condition becomes false.
+ * 3. do-while loop: Guarantees the code runs at least once.
+ * 4. enhanced for loop (for-each): For easily iterating arrays/collections.
+ */
 public class Topic_07_Loops {
     public static void main(String[] args) {
-        // Loops in Java
-        /*
-        Loops are used to execute a block of code repeatedly until a certain condition is met. Java provides several types of loops:
-        1. for loop
-        2. while loop
-        3. do-while loop
-        4. enhanced for loop (for-each loop)
-        */
 
-        /*
-        For Loop: 
-        The for loop is used when the number of iterations is known beforehand. It consists of three parts: 
-        initialization, condition, and increment/decrement. 
-        Usecase: When you want to repeat a block of code a specific number of times.
-        */
-
-        System.out.println("For Loop Example:");
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Iteration: " + i);
+        // --- LEVEL 0: BEGINNER (The absolute basics) ---
+        System.out.println("--- 1. For Loop ---");
+        for (int i = 0; i < 3; i++) {
+            System.out.println("For iteration: " + i);
         }
 
-        /*
-        While Loop:
-        The while loop is used when the number of iterations is not known beforehand. It continues to execute as long as 
-        the condition is true.
-        Usecase: When you want to repeat a block of code until a certain condition is met, but you don't know how many times it will run.
-        */
-        System.out.println("\nWhile Loop Example:");
+        System.out.println("\n--- 2. While Loop ---");
         int j = 0;
-        while (j < 5) {
-            System.out.println("Iteration: " + j);
+        while (j < 3) {
+            System.out.println("While iteration: " + j);
             j++;
         }
 
-        /*
-        Do-While Loop:
-        The do-while loop is similar to the while loop, but it guarantees that the code block will be executed at least once, 
-        even if the condition is false initially. 
-        Usecase: When you want to ensure that the loop body is executed at least once, regardless of the condition.
-        */
-        System.out.println("\nDo-While Loop Example:");
-        int k = 0;
+        System.out.println("\n--- 3. Do-While Loop ---");
+        // Executes at least once, even if the condition is already false!
+        int k = 10;
         do {
-            System.out.println("Iteration: " + k);
-            k++;
-        } while (k < 5);
+            System.out.println("Do-While ran! k is: " + k);
+        } while (k < 3);
 
-        /*
-        Enhanced For Loop (For-Each Loop):
-        The enhanced for loop is used to iterate over arrays or collections. It simplifies the syntax and eliminates the need 
-        for an index variable. 
-        Usecase: When you want to iterate over all elements in an array or collection without needing to manage an index.
-        */
-        System.out.println("\nEnhanced For Loop Example:");
-        int[] numbers = {1, 2, 3, 4, 5};
-        for (int number : numbers) {
-            System.out.println("Number: " + number);
+        System.out.println("\n--- 4. Enhanced For Loop (For-Each) ---");
+        String[] fruits = {"Apple", "Banana", "Cherry"};
+        for (String fruit : fruits) {
+            System.out.println("Fruit: " + fruit);
+        }
+
+
+
+        // --- LEVEL 1: ADVANCED (Advanced concepts and edge cases) ---
+        
+        System.out.println("\n--- 5. Advanced Concept: Variable Scope ---");
+        // Variables declared inside the initialization block of a for-loop 
+        // are scoped strictly to that loop.
+        // EDGE CASE: 'i' is out of scope here.
+        // System.out.println(i); // COMPILER ERROR
+
+        // If you need the variable after the loop finishes, declare it outside.
+        int x;
+        for (x = 0; x < 3; x++) { }
+        System.out.println("Outside loop, x ended at: " + x); // Prints 3
+
+
+        System.out.println("\n--- 6. Advanced Feature: Labeled Loops ---");
+        // Normally, 'break' only escapes the innermost loop.
+        // What if you want to break out of a deeply nested loop completely? Use a Label.
+        outerLoop: 
+        for (int row = 1; row <= 3; row++) {
+            for (int col = 1; col <= 3; col++) {
+                if (row == 2 && col == 2) {
+                    System.out.println("   Condition met! Breaking outerLoop completely.");
+                    break outerLoop; // Exits BOTH loops entirely
+                }
+                System.out.println("Row: " + row + ", Col: " + col);
+            }
+        }
+
+
+        System.out.println("\n--- 7. Advanced Edge Case: The ConcurrentModificationException Trap ---");
+        List<String> dynamicList = new ArrayList<>(List.of("A", "B", "C"));
+        
+        // EDGE CASE: If you try to ADD or REMOVE elements from a collection while 
+        // iterating over it with a for-each loop, Java throws a ConcurrentModificationException.
+        try {
+            for (String item : dynamicList) {
+                if (item.equals("B")) {
+                    // dynamicList.remove(item); // CRASHES! 
+                }
+            }
+        } catch (java.util.ConcurrentModificationException e) {
+            System.err.println("Caught ConcurrentModificationException!");
+        }
+
+        // The safe way to modify a collection during iteration is using an Iterator explicitely.
+        System.out.println("Safe removal using Iterator:");
+        Iterator<String> iterator = dynamicList.iterator();
+        while (iterator.hasNext()) {
+            String item = iterator.next();
+            if (item.equals("B")) {
+                iterator.remove(); // Safely removes the current element
+                System.out.println("   Removed B safely.");
+            }
         }
     }
 }

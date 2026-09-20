@@ -1,87 +1,85 @@
+/*
+ * Topic 5: Operators and Operations
+ * 
+ * --- LEVEL 0: BEGINNER ---
+ * Operators are symbols that perform operations on variables and values.
+ * - Arithmetic: +, -, *, /, % (modulo/remainder)
+ * - Relational: ==, !=, >, <, >=, <=
+ * - Logical: && (AND), || (OR), ! (NOT)
+ * - Assignment: =, +=, -=, etc.
+ * - Unary: ++ (increment), -- (decrement)
+ */
 public class Topic_05_OperatorsAndOperations {
+    
+    // Helper method for demonstrating short-circuit evaluation later
+    static boolean expensiveOperation() {
+        System.out.println("   [Side Effect: expensiveOperation() executed!]");
+        return true;
+    }
+
     public static void main(String[] args) {
 
-        // Operators and Operations
-        /*
-        In Java, operators are special symbols that perform operations on variables and values. There are several types of operators in Java, including:
-        - Arithmetic Operators: +, -, *, /, %
-        - Relational Operators: ==, !=, >, <, >=, <=
-        - Logical Operators: &&, ||, !
-        - Assignment Operators: =, +=, -=, *=, /=, %=
-        - Unary Operators: +, -, ++, --
-        - Bitwise Operators: &, |, ^, ~, <<, >>, >>>
-        */
-
-        // Example Code for Arithmetic Operators
+        // --- LEVEL 0: BEGINNER (The absolute basics) ---
+        System.out.println("--- 1. Basic Arithmetic & Relational ---");
         int a = 10;
-        int b = 5;
-        int sum = a + b; // Addition
-        int difference = a - b; // Subtraction
-        int product = a * b; // Multiplication
-        int quotient = a / b; // Division
-        int remainder = a % b; // Modulus - gives the remainder of the division
+        int b = 3;
+        
+        System.out.println("Addition (a + b): " + (a + b)); // 13
+        System.out.println("Division (a / b): " + (a / b)); // 3 (Integer division drops remainder!)
+        System.out.println("Modulo (a % b): " + (a % b));   // 1 (The remainder of 10/3)
+        System.out.println("Is a greater than b?: " + (a > b)); // true
 
-        // Example Code for Relational Operators
-        boolean isEqual = (a == b); // false
-        boolean isNotEqual = (a != b); // true
-        boolean isGreater = (a > b); // true
-        boolean isLess = (a < b); // false
 
-        // Example Code for Logical Operators
-        boolean result1 = (a > 0) && (b > 0); // true
-        boolean result2 = (a > 0) || (b < 0); // true
-        boolean result3 = !(a < 0); // true
+        System.out.println("\n--- 2. Unary Operators (Increment/Decrement) ---");
+        int count = 5;
+        count++; // Increases by 1
+        System.out.println("Count after ++: " + count); // 6
 
-        // Example Code for Assignment Operators
-        int c = 10;
-        c += 5; // c = c + 5; now c is 15  
-        c -= 3; // c = c - 3; now c is 12
-        c *= 2; // c = c * 2; now c is 24
-        c /= 4; // c = c / 4; now c is 6
-        c %= 2; // c = c % 2; now c is 0
 
-        // Example Code for Unary Operators
-        int d = 5;
-        d++; // Increment operator, now d is 6
-        d--; // Decrement operator, now d is 5
-        // Differece between prefix and postfix increment/decrement operators
+
+        // --- LEVEL 1: ADVANCED (Advanced concepts and edge cases) ---
+        
+        System.out.println("\n--- 3. Advanced Edge Case: Prefix vs Postfix ---");
         int x = 5;
-        int y = ++x; // Prefix increment: x is incremented first, then assigned to y, so y is 6 and x is 6
-        int z = x++; // Postfix increment: x is assigned to z first, then incremented, so z is 6 and x is 7
-
-        // Example Code for Bitwise Operators
-        int e = 5; // 0101 in binary
-        int f = 3; // 0011 in binary
-        int andResult = e & f; // 0101 & 0011 = 0001 (1 in decimal)
-        int orResult = e | f; // 0101 | 0011 = 0111 (7 in decimal)
-        int xorResult = e ^ f; // 0101 ^ 0011 = 0110 (6 in decimal)
-
+        // Postfix: Use the value first, THEN increment
+        int y = x++; 
+        System.out.println("After Postfix (y = x++): y=" + y + ", x=" + x); // y=5, x=6
+        
+        x = 5; // Reset
+        // Prefix: Increment the value first, THEN use it
+        int z = ++x;
+        System.out.println("After Prefix (z = ++x): z=" + z + ", x=" + x); // z=6, x=6
 
 
-        System.out.println("Sum: " + sum);
-        System.out.println("Difference: " + difference);
-        System.out.println("Product: " + product);
-        System.out.println("Quotient: " + quotient);
-        System.out.println("Remainder: " + remainder);  
+        System.out.println("\n--- 4. Advanced Edge Case: Floating-Point Modulo ---");
+        // Unlike some languages (C/C++), Java allows modulo on floating-point numbers!
+        System.out.println("10.5 % 3 = " + (10.5 % 3)); // 1.5
+        // Modulo with negative numbers preserves the sign of the numerator!
+        System.out.println("-10 % 3 = " + (-10 % 3)); // -1
 
-        System.out.println("isEqual: " + isEqual);
-        System.out.println("isNotEqual: " + isNotEqual);
-        System.out.println("isGreater: " + isGreater);
-        System.out.println("isLess: " + isLess);
 
-        System.out.println("result1: " + result1);
-        System.out.println("result2: " + result2);
-        System.out.println("result3: " + result3);
+        System.out.println("\n--- 5. Advanced Edge Case: Short-Circuit (&&) vs Non-Short-Circuit (&) ---");
+        // Short-circuit operators stop evaluating as soon as the result is known.
+        System.out.println("Testing Short-Circuit (&&):");
+        boolean result1 = false && expensiveOperation(); // expensiveOperation() is NEVER called because false && anything is false.
+        
+        System.out.println("Testing Non-Short-Circuit (&):");
+        // The bitwise & operator, when used on booleans, evaluates BOTH sides unconditionally.
+        boolean result2 = false & expensiveOperation(); // expensiveOperation() IS called!
 
-        System.out.println("c: " + c);
-        System.out.println("d: " + d);
 
-        System.out.println("y: " + y);
-        System.out.println("z: " + z);
-        System.out.println("x: " + x);
+        System.out.println("\n--- 6. Advanced Edge Case: Bitwise Shift Operators ---");
+        // Java uses Two's Complement to represent negative numbers.
+        int positiveNum = 12;  // Binary: 00000000 ... 00001100
+        int negativeNum = -12; // Binary: 11111111 ... 11110100
+        
+        // Signed Right Shift (>>): Shifts bits right, padding with the sign bit (preserves sign)
+        int signedShift = negativeNum >> 1; // Shifts right by 1
+        System.out.println("-12 >> 1 (Signed Shift): " + signedShift); // Result: -6
 
-        System.out.println("AND Result: " + andResult);
-        System.out.println("OR Result: " + orResult);
-        System.out.println("XOR Result: " + xorResult);
+        // Unsigned Right Shift (>>>): Shifts bits right, padding with 0s ALWAYS.
+        // This forces a negative number to become a massive positive number!
+        int unsignedShift = negativeNum >>> 1;
+        System.out.println("-12 >>> 1 (Unsigned Shift): " + unsignedShift); // Result: 2147483642
     }
 }
