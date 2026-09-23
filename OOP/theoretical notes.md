@@ -35,22 +35,22 @@ graph TD
     subgraph "Encapsulated Class (The Capsule)"
         direction TB
         subgraph "Public Methods (The Outer Shell)"
-            G[Getters]
-            S[Setters]
-            BM[Business Methods e.g. deposit()]
+            G["Getters"]
+            S["Setters"]
+            BM["Business Methods e.g. deposit()"]
         end
         subgraph "Private Data (The Hidden Core)"
-            D1[private int age]
-            D2[private double balance]
+            D1["private int age"]
+            D2["private double balance"]
         end
         G --> D1
         S --> D1
         BM --> D2
     end
     
-    ExternalCode[External Code] -- Can Only Call --> G
-    ExternalCode -- Can Only Call --> S
-    ExternalCode -. Blocked! Cannot Access Directly .-> D1
+    ExternalCode["External Code"] -->|"Can Only Call"| G
+    ExternalCode -->|"Can Only Call"| S
+    ExternalCode -.->|"Blocked! Cannot Access Directly"| D1
 ```
 
 ### Why do we need Encapsulation?
