@@ -44,3 +44,25 @@ Never use `float` or `double` for precise calculations like currency.
 ### 6. The "Dangling Else" and Switch Fall-Through
 - **Dangling Else:** If you omit curly braces `{}` in nested `if` statements, an `else` clause will automatically attach itself to the *nearest* `if` above it, regardless of your indentation. Always use braces.
 - **Switch Fall-Through:** In a traditional `switch` statement, if you forget a `break;` command, the code will execute the matching case AND continue executing all subsequent cases until it hits a break or the end of the block. (Note: Modern Java 14+ switch expressions using the `->` arrow syntax do not suffer from fall-through).
+
+---
+
+## String Manipulation: StringBuffer vs. StringBuilder
+
+Because standard `String` objects are immutable in Java, modifying a string repeatedly (like in a `for` loop) creates a huge number of temporary, garbage objects in memory. To solve this, Java provides two mutable string classes: `StringBuffer` and `StringBuilder`. 
+
+Understanding the internal difference between these two is a fundamental concept in Java.
+
+### 1. StringBuffer (Slow but Thread-Safe)
+Introduced in the very first version of Java (JDK 1.0), `StringBuffer` was designed to be universally safe to use, even in multi-threaded environments.
+- **Why is it Thread-Safe?** Inside the source code of `StringBuffer`, almost every single method (like `.append()`, `.insert()`, `.delete()`) is marked with the `synchronized` keyword. This acts as a traffic light. If Thread A starts appending text, Thread B is physically blocked from interacting with that object until Thread A is completely finished.
+- **Why is it Slow?** This thread-safety comes at a massive performance cost. Every time a thread wants to modify the `StringBuffer`, it must negotiate with the JVM to acquire a "lock" on the object, execute the code, and then release the lock. This locking/unlocking overhead makes `StringBuffer` significantly slower than its modern counterpart.
+
+### 2. StringBuilder (Fast but Thread-Unsafe)
+As Java evolved, architects realized that 99% of the time, developers were manipulating strings inside a single method on a single thread. The locking mechanism of `StringBuffer` was severely holding back performance for no practical benefit. Thus, `StringBuilder` was introduced in Java 1.5.
+- **Why is it Fast?** `StringBuilder` is an exact clone of `StringBuffer`'s API, but the Java architects completely removed the `synchronized` keyword from all of its methods. Without the burden of locking and unlocking, it executes string manipulations incredibly fast.
+- **Why is it Thread-Unsafe?** Because there are no "traffic lights", multiple threads can attempt to modify a `StringBuilder` at the exact same millisecond. If Thread A tries to expand the internal character array while Thread B is writing to it, the data will become garbled, corrupted, or the JVM will throw an `ArrayIndexOutOfBoundsException`.
+
+### The Golden Rule
+- **Always use `StringBuilder`** by default for any string concatenation or manipulation. 
+- **Only use `StringBuffer`** if you have a specific architectural requirement where multiple threads are actively sharing and modifying the exact same string object globally.
