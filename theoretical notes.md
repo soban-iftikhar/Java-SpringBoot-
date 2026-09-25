@@ -2,11 +2,12 @@
 
 A complete tutorial repository on Java with Spring Boot. This file serves as the gateway to all the core theoretical concepts you need to master Java.
 
-To prevent this file from becoming endlessly long, the theoretical notes have been logically divided into the corresponding directories:
+To prevent this file from becoming endlessly long, theoretical notes are stored alongside their respective `.java` files within the directories. For example:
 
-- **[Basics of Java Theoretical Notes](Basics%20of%20Java/theoretical%20notes.md)**: Core syntax, operators, control flow.
-- **[OOP Theoretical Notes](OOP/theoretical%20notes.md)**: Classes, memory management (Stack vs Heap), and object-oriented principles.
-- **[DSA Theoretical Notes](DSA/theoretical%20notes.md)**: Data structures, jagged arrays, and algorithmic drawbacks.
+- **[OOP/Topic_01_ClassesAndObjects.md](OOP/Topic_01_ClassesAndObjects.md)**: Memory management (Stack vs Heap).
+- **[OOP/Topic_03_Encapsulation.md](OOP/Topic_03_Encapsulation.md)**: Encapsulation theory, Getters/Setters, and Core Keywords.
+- **[DSA/Topic_01_Arrays.md](DSA/Topic_01_Arrays.md)**: Drawbacks and limitations of basic Arrays.
+- **[Basics of Java/theoretical notes.md](Basics%20of%20Java/theoretical%20notes.md)**: String mutability and core syntax cheat sheets.
 
 ---
 
