@@ -14,19 +14,19 @@ Inheritance is one of the foundational pillars of Object-Oriented Programming (O
 
 Java supports some, but not all, theoretical forms of inheritance.
 
-### ✅Single Inheritance
+### Single Inheritance
 A single child class inherits from a single parent class. 
 *(e.g., `AdvancedCalculator extends Calculator`)*
 
-### ✅ Multi-Level Inheritance
+### Multi-Level Inheritance
 A child class inherits from a parent, which inherits from a grandparent. The child gains the traits of all ancestors above it in the chain.
 *(e.g., `ScientificCalculator extends AdvancedCalculator`, which extends `Calculator`)*
 
-### ✅ Hierarchical Inheritance
+### Hierarchical Inheritance
 Multiple different child classes inherit from a single parent class.
 *(e.g., `Dog extends Animal` AND `Cat extends Animal`)*
 
-### ❌ Multiple Inheritance (NOT SUPPORTED WITH CLASSES)
+### Multiple Inheritance (NOT SUPPORTED WITH CLASSES)
 In C++, a single child class can inherit from two completely different parent classes simultaneously (e.g., `Child extends Father, Mother`). **Java completely forbids this.**
 
 **Why? The Diamond Problem.**

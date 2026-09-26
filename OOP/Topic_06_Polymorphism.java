@@ -49,13 +49,14 @@ class Animal {
 }
 
 class Dog extends Animal {
-    
-    // The @Override annotation is optional but HIGHLY recommended.
-    // It tells the compiler to double-check that you are actually overriding a parent method.
-    // If you misspell it as 'makeSounds()', the compiler will throw an error saving you from a bug!
     @Override
     public void makeSound() {
         System.out.println("Bark! Bark! 🐕");
+    }
+
+    // A method specific ONLY to Dog
+    public void fetch() {
+        System.out.println("The dog is fetching the ball! 🎾");
     }
 }
 
@@ -72,31 +73,59 @@ public class Topic_06_Polymorphism {
         
         System.out.println("--- 1. Testing Method Overloading (Printer) ---");
         Printer myPrinter = new Printer();
-        // The Java Compiler knows exactly which method to call based on the argument provided!
-        myPrinter.print("Hello Java");  // Calls Method 1
-        myPrinter.print(404);           // Calls Method 2
-        myPrinter.print("Alpha", "Beta"); // Calls Method 3
-        
+        myPrinter.print("Hello Java"); 
+        myPrinter.print(404);           
+        myPrinter.print("Alpha", "Beta"); 
         
         System.out.println("\n--- 2. Testing Method Overriding (Animals) ---");
         Animal generic = new Animal();
         Dog myDog = new Dog();
-        Cat myCat = new Cat();
         
         generic.makeSound();
-        myDog.makeSound(); // Overridden behavior executes!
-        myCat.makeSound(); // Overridden behavior executes!
+        myDog.makeSound(); 
+        myDog.fetch(); // Works perfectly, myDog is a Dog reference pointing to a Dog object.
         
+        // =========================================================================
+        // --- LEVEL 1: THE HARDEST PART (Upcasting, Downcasting & Visibility) ---
+        // =========================================================================
+        System.out.println("\n--- 3. Upcasting & Dynamic Method Dispatch ---");
         
-        // --- LEVEL 1: MASTER EDGE CASE (Dynamic Method Dispatch) ---
-        System.out.println("\n--- 3. Master Concept: Upcasting & Dynamic Dispatch ---");
-        // Because of the 'IS-A' relationship, we can store a Dog in an Animal reference variable.
+        // UPCASTING: Storing a Child object in a Parent reference variable.
+        // Rule: The REFERENCE TYPE (Animal) determines WHAT methods you can call (Visibility).
+        // Rule: The ACTUAL OBJECT (Dog) determines WHICH version of the method runs (Execution).
         Animal mysteryAnimal = new Dog(); 
         
-        // Which makeSound() will run? The Animal's or the Dog's?
-        // Answer: The JVM looks at the ACTUAL OBJECT created on the Heap (Dog), not the reference type (Animal).
-        // This decision happens while the program is running (Run-Time Polymorphism).
         System.out.print("Mystery Animal says: ");
-        mysteryAnimal.makeSound(); // Outputs: Bark! Bark!
+        mysteryAnimal.makeSound(); // Outputs: Bark! Bark! (Dynamic Dispatch to Dog's overridden method)
+        
+        // THE TRAP: Can we call fetch()?
+        // mysteryAnimal.fetch(); // COMPILER ERROR! 
+        // Why? The compiler only looks at the REFERENCE TYPE (`Animal`). 
+        // The `Animal` class does NOT have a `fetch()` method, so the compiler panics and blocks it.
+        // It doesn't care that the actual object in memory is a Dog.
+        
+        System.out.println("\n--- 4. Downcasting (Solving the Trap) ---");
+        // DOWNCASTING: Telling the compiler "Trust me, I know this Animal is actually a Dog!"
+        // We temporarily cast the reference back down to a Dog so we can access Dog-specific methods.
+        Dog revealedDog = (Dog) mysteryAnimal;
+        revealedDog.fetch(); // Works perfectly! 
+        
+        // Or done in one line:
+        // ((Dog) mysteryAnimal).fetch();
+
+        // THE DOWNCASTING DANGER (ClassCastException)
+        // If you try to downcast an object into something it isn't, your program will crash at runtime.
+        /*
+        Animal sneakyCat = new Cat();
+        Dog fakeDog = (Dog) sneakyCat; // COMPILER ALLOWS THIS, but crashes at RUNTIME (ClassCastException)
+        */
+        
+        // SAFE DOWNCASTING using 'instanceof'
+        Animal unknown = new Cat();
+        if (unknown instanceof Dog) {
+            ((Dog) unknown).fetch();
+        } else {
+            System.out.println("Cannot downcast: This animal is not a Dog!");
+        }
     }
 }
