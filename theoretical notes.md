@@ -6,6 +6,9 @@ To prevent this file from becoming endlessly long, theoretical notes are stored 
 
 - **[OOP/Topic_01_ClassesAndObjects.md](OOP/Topic_01_ClassesAndObjects.md)**: Memory management (Stack vs Heap).
 - **[OOP/Topic_03_Encapsulation.md](OOP/Topic_03_Encapsulation.md)**: Encapsulation theory, Getters/Setters, and Core Keywords.
+- **[OOP/Topic_04_Inheritance.md](OOP/Topic_04_Inheritance.md)**: IS-A relationships, multi-level structures, and the Diamond Problem.
+- **[OOP/Topic_05_SuperKeyword.md](OOP/Topic_05_SuperKeyword.md)**: Variable hiding (John Cena effect) and constructor control.
+- **[OOP/Topic_06_Polymorphism.md](OOP/Topic_06_Polymorphism.md)**: Overloading (Compile-time) vs Overriding (Run-time).
 - **[DSA/Topic_01_Arrays.md](DSA/Topic_01_Arrays.md)**: Drawbacks and limitations of basic Arrays.
 - **[Basics of Java/theoretical notes.md](Basics%20of%20Java/theoretical%20notes.md)**: String mutability and core syntax cheat sheets.
 
