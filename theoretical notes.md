@@ -16,6 +16,7 @@ To prevent this file from becoming endlessly long, theoretical notes are stored 
 - **[OOP/Topic_11_Serialization.md](OOP/Topic_11_Serialization.md)**: Saving object state, Marker Interfaces, transient data, and serialVersionUID.
 - **[DSA/Topic_01_Arrays.md](DSA/Topic_01_Arrays.md)**: Drawbacks and limitations of basic Arrays.
 - **[Basics of Java/theoretical notes.md](Basics%20of%20Java/theoretical%20notes.md)**: String mutability and core syntax cheat sheets.
+- **[Basics of Java/Topic_10_WrapperClasses.md](Basics%20of%20Java/Topic_10_WrapperClasses.md)**: Autoboxing, the NullPointerException trap, and Integer Caching.
 
 ---
 
